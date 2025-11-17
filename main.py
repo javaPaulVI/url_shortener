@@ -18,6 +18,7 @@ stats_table = StatsTable()
 async def shorten(item: URLItem):
     return url_table.create_url(item)
 
+
 @api.get("/get_stats/{short_id}")
 async def get_stats(short_id: str):
     return stats_table.get_clicks_for_url(short_id)
@@ -43,6 +44,7 @@ def redirect(short_id: str, request: Request):
 
     # Return redirect URL (or use FastAPI RedirectResponse)
     return RedirectResponse(url["long_url"])
+
 
 app.include_router(api)
 app.include_router(router)
