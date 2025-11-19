@@ -1,6 +1,6 @@
 from fastapi import FastAPI, APIRouter, Request, HTTPException
 from fastapi.responses import RedirectResponse
-from api.db.models import URLItem, StatRequest
+from models import URLItem, StatRequest
 from db import StatsTable, URLsTable
 from mangum import Mangum
 
