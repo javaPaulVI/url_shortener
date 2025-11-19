@@ -28,7 +28,7 @@ import re
 
 RESERVED_PATHS = ["shorten", "r", "stats", "docs", "redoc", "openapi.json"]
 
-db = TinyDB("db/db.json")
+db = TinyDB("api/db/db.json")
 
 def generate_short_id(length=8):
     return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
