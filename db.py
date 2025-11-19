@@ -46,7 +46,7 @@ class URLsTable:
 
         record = {
             "short_id": short_id,
-            "long_url": str(data.long_url),  # Convert HttpUrl to string
+            "long_url": str(data.url),  # Convert HttpUrl to string
             "created_at": datetime.now().isoformat(),
             "expires_at": None,
             "clicks": 0,

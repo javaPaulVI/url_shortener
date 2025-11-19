@@ -1,6 +1,6 @@
 from fastapi import FastAPI, APIRouter, Request, HTTPException
 from fastapi.responses import RedirectResponse
-from models import URLItem, ClickEvent
+from models import URLItem, StatRequest
 from db import db, StatsTable, URLsTable
 import datetime
 
@@ -19,9 +19,9 @@ async def shorten(item: URLItem):
     return url_table.create_url(item)
 
 
-@api.get("/get_stats/{short_id}")
-async def get_stats(short_id: str):
-    return stats_table.get_clicks_for_url(short_id)
+@api.post("/get_stats/{short_id}")
+async def get_stats(stat_request: StatRequest):
+    return stats_table.get_clicks_for_url(stat_request.alias)
 
 
 @app.get("/r/{short_id}")
@@ -46,5 +46,13 @@ def redirect(short_id: str, request: Request):
     return RedirectResponse(url["long_url"])
 
 
+@api.get("/get_redirect_url/{short_id}")
+def get_redirect_url(short_id: str):
+    # Increment clicks
+    url = url_table.increment_clicks(short_id)
+    if not url:
+        raise HTTPException(status_code=404, detail="Short URL not found")
+
+    return { "long_url": url["long_url"]}
 app.include_router(api)
 app.include_router(router)

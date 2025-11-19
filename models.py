@@ -4,8 +4,11 @@ from datetime import datetime
 
 
 class URLItem(BaseModel):
-    long_url: HttpUrl
+    url: HttpUrl
     alias: str = None
+
+class StatRequest(BaseModel):
+    alias: str
 
 
 
