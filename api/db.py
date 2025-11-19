@@ -3,7 +3,7 @@ from datetime import datetime
 import random, string
 import re
 
-from models import URLItem
+from api.db.models import URLItem
 
 RESERVED_PATHS = ["shorten", "r", "stats", "docs", "redoc", "openapi.json"]
 

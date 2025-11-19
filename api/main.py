@@ -1,8 +1,8 @@
 from fastapi import FastAPI, APIRouter, Request, HTTPException
 from fastapi.responses import RedirectResponse
-from models import URLItem, StatRequest
-from db import db, StatsTable, URLsTable
-import datetime
+from api.db.models import URLItem, StatRequest
+from db import StatsTable, URLsTable
+from mangum import Mangum
 
 RESERVED_PATHS = ["shorten", "r", "stats", "docs", "redoc", "openapi.json"]
 
@@ -56,3 +56,5 @@ def get_redirect_url(short_id: str):
     return { "long_url": url["long_url"]}
 app.include_router(api)
 app.include_router(router)
+
+Mangum(app)
